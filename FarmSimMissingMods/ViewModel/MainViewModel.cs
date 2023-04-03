@@ -115,14 +115,6 @@ public class MainViewModel : ViewModelBase
             MessageBox.Show("ERROR : Invalid mods directory", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
-
-        m_GameFilename = m_Config["game-exe"];
-        if (string.IsNullOrEmpty(m_GameFilename))
-        {
-            m_Logger.Error("Invalid game exe");
-            MessageBox.Show("ERROR : Invalid game exe", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            RequestExit();
-        }
         
         var musicStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FarmSimMissingMods.Resources.sound.wav");
         
@@ -156,6 +148,13 @@ public class MainViewModel : ViewModelBase
         ServerMods = new ObservableCollection<Mod>();
 
         RefreshServerMods();
+        
+        m_GameFilename = m_Config["game-exe"];
+        if (string.IsNullOrEmpty(m_GameFilename))
+        {
+            m_Logger.Error("Invalid game exe");
+            MessageBox.Show("ERROR : Invalid game exe", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+        }
     }
 
     #endregion
