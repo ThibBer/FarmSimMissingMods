@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>disable</Nullable>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>Resources\etaLaMarchoise.ico</ApplicationIcon>
+        <ApplicationIcon>..\FarmSimMissingMods.Resources\etaLaMarchoise.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\FarmSimMissingMods.DataAccess\FarmSimMissingMods.DataAccess.csproj" />
       <ProjectReference Include="..\FarmSimMissingMods.Model\FarmSimMissingMods.Model.csproj" />
+      <ProjectReference Include="..\FarmSimMissingMods.Resources\FarmSimMissingMods.Resources.csproj" />
       <ProjectReference Include="..\FarmSimMissingMods.Service\FarmSimMissingMods.Service.csproj" />
     </ItemGroup>
 
@@ -28,18 +29,15 @@
       <Content Include="log4net.config">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Resources" />
+      <None Include="..\FarmSimMissingMods.Resources\etaLaMarchoise.ico">
+        <Link>etaLaMarchoise.ico</Link>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Resources\etaLaMarchoise.ico" />
-      <EmbeddedResource Include="Resources\etaLaMarchoise.ico" />
       <None Remove="Resources\sound.mp3" />
       <None Remove="Resources\sound.wav" />
-      <EmbeddedResource Include="Resources\sound.wav" />
     </ItemGroup>
 
 </Project>

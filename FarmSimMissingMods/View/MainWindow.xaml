@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:FarmSimMissingMods.Converter"
         xmlns:viewModel="clr-namespace:FarmSimMissingMods.ViewModel"
+        xmlns:extension="clr-namespace:FarmSimMissingMods.Extension"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         d:DataContext="{d:DesignInstance d:Type={x:Type viewModel:MainViewModel}}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -20,6 +22,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             
             <Grid.RowDefinitions>
@@ -28,18 +31,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="18">Farm Sim Missing Mods</Label>
-            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Text="{Binding InvalidModsCount, StringFormat= 'Invalid mods : \{0\}'}" Margin="0 5"/>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="18">Farm Sim Missing Mods</Label>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Margin="0 5" Orientation="Horizontal">
+                <Label Content="{extension:I18N InvalidModsCount}"/>
+                <Label Content="{Binding InvalidModsCount}"/>
+            </StackPanel>
             
-            <Button Grid.Row="2" Grid.Column="0" Margin="0 0 10 0" Height="30" Command="{Binding RefreshServerModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}">
-                Refresh server mods
-            </Button>
-            <Button Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" Height="30" Command="{Binding ValidateLocalModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}">
-                Validate local mods
-            </Button>
-            <Button Grid.Row="2" Grid.Column="2" Margin="10 0 0 0" Height="30" Command="{Binding DownloadMissingModsCommand}" IsEnabled="{Binding CanDownloadMods}">
-                Download missing / invalid mods
-            </Button>
+            <Button Grid.Row="2" Grid.Column="0" Margin="0 0 10 0" Height="30" Command="{Binding RefreshServerModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Content="{extension:I18N RefreshServerMods}" />
+                <Button Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" Height="30" Command="{Binding ValidateLocalModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Content="{extension:I18N ValidateLocalMods}" />
+            <Button Grid.Row="2" Grid.Column="2" Margin="10 0 0 0" Height="30" Command="{Binding DownloadMissingModsCommand}" IsEnabled="{Binding CanDownloadMods}" Content="{extension:I18N DownloadMissingMods}" />
+            <Button Grid.Row="2" Grid.Column="3" Margin="10 0 0 0" Height="30" Command="{Binding StartGameCommand}" IsEnabled="{Binding CanStartGame}" Content="{extension:I18N StartGame}" />
         </Grid>
         
         <ScrollViewer Grid.Row="1" PreviewMouseWheel="ScrollViewer_OnPreviewMouseWheel">

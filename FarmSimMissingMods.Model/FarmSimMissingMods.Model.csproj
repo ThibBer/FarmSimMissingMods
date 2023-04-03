@@ -11,4 +11,8 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FarmSimMissingMods.Resources\FarmSimMissingMods.Resources.csproj" />
+    </ItemGroup>
+
 </Project>

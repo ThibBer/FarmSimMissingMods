@@ -1,0 +1,47 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="RefreshServerMods" xml:space="preserve">
+        <value>Rafraichir les mods serveur</value>
+    </data>
+    <data name="ValidateLocalMods" xml:space="preserve">
+        <value>Valdier les mods en local</value>
+    </data>
+    <data name="DownloadMissingMods" xml:space="preserve">
+        <value>Télécharger les mods manquants</value>
+    </data>
+    <data name="Name" xml:space="preserve">
+        <value>Nom</value>
+    </data>
+    <data name="Label" xml:space="preserve">
+        <value>Libellé</value>
+    </data>
+    <data name="Author" xml:space="preserve">
+        <value>Auteur</value>
+    </data>
+    <data name="State" xml:space="preserve">
+        <value>Etat</value>
+    </data>
+    <data name="StartGame" xml:space="preserve">
+        <value>Démarrer le jeu</value>
+    </data>
+    <data name="InvalidModsCount" xml:space="preserve">
+        <value>Mods invalide : </value>
+    </data>
+    <data name="JobIsDone" xml:space="preserve">
+        <value>Le travail demandé est effectué</value>
+    </data>
+    <data name="ModsAreUpToDate" xml:space="preserve">
+        <value>Les mods sont à jour ! Avec une rafale de siiiiiiiix pieds</value>
+    </data>
+</root>

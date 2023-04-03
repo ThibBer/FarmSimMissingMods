@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.Service", "FarmSimMissingMods.Service\FarmSimMissingMods.Service.csproj", "{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.Resources", "FarmSimMissingMods.Resources\FarmSimMissingMods.Resources.csproj", "{4364D219-FB60-4F19-BF49-6BAB10B64E20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4364D219-FB60-4F19-BF49-6BAB10B64E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4364D219-FB60-4F19-BF49-6BAB10B64E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4364D219-FB60-4F19-BF49-6BAB10B64E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4364D219-FB60-4F19-BF49-6BAB10B64E20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

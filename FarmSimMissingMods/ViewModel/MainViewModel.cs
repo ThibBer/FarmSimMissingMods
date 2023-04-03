@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Reflection;
@@ -13,6 +15,7 @@ using FarmSimMissingMods.DataAccess;
 using FarmSimMissingMods.Model;
 using FarmSimMissingMods.Model.Command;
 using FarmSimMissingMods.Model.Exceptions;
+using FarmSimMissingMods.Model.I18N;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Yaml;
@@ -34,6 +37,7 @@ public class MainViewModel : ViewModelBase
     private int m_InvalidModsCount;
     private SoundPlayer m_SoundPlayer;
     private bool m_SoundPlayerIsActive;
+    private string m_GameFilename;
 
     #endregion
 
@@ -45,11 +49,16 @@ public class MainViewModel : ViewModelBase
         configurationBuilder.AddYamlFile("config.yml");
 
         m_Config = configurationBuilder.Build();
+        
+        var culture = m_Config["culture"] ?? "en";
+        I18NManager.CultureInfo = CultureInfo.CreateSpecificCulture(culture);
+
         m_MD5 = MD5.Create();
 
         RefreshServerModsCommand = new DelegateCommand(OnRefreshMods);
         ValidateLocalModsCommand = new DelegateCommand(OnValidateLocalMods);
         DownloadMissingModsCommand = new DelegateCommand(OnDownloadMissingMods);
+        StartGameCommand = new DelegateCommand(OnStartGame);
 
         var server = m_Config["ftp:server"];
         if (string.IsNullOrEmpty(server))
@@ -106,6 +115,14 @@ public class MainViewModel : ViewModelBase
             MessageBox.Show("ERROR : Invalid mods directory", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
+
+        m_GameFilename = m_Config["game-exe"];
+        if (string.IsNullOrEmpty(m_GameFilename))
+        {
+            m_Logger.Error("Invalid game exe");
+            MessageBox.Show("ERROR : Invalid game exe", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            RequestExit();
+        }
         
         var musicStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FarmSimMissingMods.Resources.sound.wav");
         
@@ -150,6 +167,7 @@ public class MainViewModel : ViewModelBase
     public ICommand RefreshServerModsCommand { get; }
     public ICommand ValidateLocalModsCommand { get; }
     public ICommand DownloadMissingModsCommand { get; }
+    public ICommand StartGameCommand { get; }
 
     #endregion
 
@@ -165,6 +183,7 @@ public class MainViewModel : ViewModelBase
                 m_IsBusy = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CanDownloadMods));
+                OnPropertyChanged(nameof(CanStartGame));
             }
         }
     }
@@ -183,6 +202,7 @@ public class MainViewModel : ViewModelBase
     }
 
     public bool CanDownloadMods => m_InvalidModsCount > 0 && !IsBusy;
+    public bool CanStartGame => !string.IsNullOrEmpty(m_GameFilename) && !IsBusy;
 
     #endregion
 
@@ -255,10 +275,28 @@ public class MainViewModel : ViewModelBase
                 }
             }
 
-            MessageBox.Show("Mods are now up-to-date !", "Job is done", MessageBoxButton.OK);
+            MessageBox.Show(I18NManager.GetTranslation("ModsAreUpToDate"), I18NManager.GetTranslation("JobIsDone"), MessageBoxButton.OK);
 
             IsBusy = false;
         });
+    }
+
+    private void OnStartGame(object obj)
+    {
+        var processStartInfo = new ProcessStartInfo(m_GameFilename);
+
+        var process = new Process();
+        process.StartInfo = processStartInfo;
+            
+        if (!process.Start())
+        {
+            MessageBox.Show("Can't start Farming Simulator exe ...");
+            m_Logger.ErrorFormat("Can't start Farming Simulator exe ...");
+        }
+        else
+        {
+            RequestExit();
+        }
     }
 
     private void OnRefreshMods(object obj)
