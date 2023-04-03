@@ -1,0 +1,14 @@
+.idea
+
+FarmSimMissingMods/bin
+FarmSimMissingMods/obj
+FarmSimMissingMods/config.yml
+
+FarmSimMissingMods.DataAccess/bin
+FarmSimMissingMods.DataAccess/obj
+
+FarmSimMissingMods.Model/bin
+FarmSimMissingMods.Model/obj
+
+FarmSimMissingMods.Service/bin
+FarmSimMissingMods.Service/obj
