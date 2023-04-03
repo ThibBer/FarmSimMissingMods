@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods", "FarmSimMissingMods\FarmSimMissingMods.csproj", "{5BB379A6-B857-4A95-B2B0-4021CEDE2096}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.Model", "FarmSimMissingMods.Model\FarmSimMissingMods.Model.csproj", "{17BD0743-D326-494B-AA5B-0D1FBD62EBD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.DataAccess", "FarmSimMissingMods.DataAccess\FarmSimMissingMods.DataAccess.csproj", "{F66C361B-5F5F-4A48-83A3-C2653E9712DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimMissingMods.Service", "FarmSimMissingMods.Service\FarmSimMissingMods.Service.csproj", "{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BB379A6-B857-4A95-B2B0-4021CEDE2096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB379A6-B857-4A95-B2B0-4021CEDE2096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB379A6-B857-4A95-B2B0-4021CEDE2096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB379A6-B857-4A95-B2B0-4021CEDE2096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BD0743-D326-494B-AA5B-0D1FBD62EBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BD0743-D326-494B-AA5B-0D1FBD62EBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BD0743-D326-494B-AA5B-0D1FBD62EBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BD0743-D326-494B-AA5B-0D1FBD62EBD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66C361B-5F5F-4A48-83A3-C2653E9712DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66C361B-5F5F-4A48-83A3-C2653E9712DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66C361B-5F5F-4A48-83A3-C2653E9712DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66C361B-5F5F-4A48-83A3-C2653E9712DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DC41ED-CAD4-4440-AE4B-C3516C5E3424}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

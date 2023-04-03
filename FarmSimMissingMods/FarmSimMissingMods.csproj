@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>disable</Nullable>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\etaLaMarchoise.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FarmSimMissingMods.DataAccess\FarmSimMissingMods.DataAccess.csproj" />
+      <ProjectReference Include="..\FarmSimMissingMods.Model\FarmSimMissingMods.Model.csproj" />
+      <ProjectReference Include="..\FarmSimMissingMods.Service\FarmSimMissingMods.Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="log4net" Version="2.0.15" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Yaml" Version="2.0.0-preview2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="config.yml" />
+      <Content Include="config.yml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\etaLaMarchoise.ico" />
+      <EmbeddedResource Include="Resources\etaLaMarchoise.ico" />
+    </ItemGroup>
+
+</Project>
