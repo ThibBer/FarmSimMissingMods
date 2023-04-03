@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>WinExe</OutputType>
+        <OutputType>Exe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>disable</Nullable>
         <UseWPF>true</UseWPF>
@@ -24,6 +24,10 @@
       <Content Include="config.yml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <None Remove="log4net.config" />
+      <Content Include="log4net.config">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -33,6 +37,9 @@
     <ItemGroup>
       <None Remove="Resources\etaLaMarchoise.ico" />
       <EmbeddedResource Include="Resources\etaLaMarchoise.ico" />
+      <None Remove="Resources\sound.mp3" />
+      <None Remove="Resources\sound.wav" />
+      <EmbeddedResource Include="Resources\sound.wav" />
     </ItemGroup>
 
 </Project>

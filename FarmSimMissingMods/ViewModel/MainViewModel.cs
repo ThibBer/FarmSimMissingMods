@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using FarmSimMissingMods.DataAccess;
 using FarmSimMissingMods.Model;
 using FarmSimMissingMods.Model.Command;
+using FarmSimMissingMods.Model.Exceptions;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Yaml;
@@ -29,8 +31,9 @@ public class MainViewModel : ViewModelBase
     private MD5 m_MD5;
     private byte[] m_BufferByteArray;
     private bool m_IsBusy;
-    private Thread m_Thread;
     private int m_InvalidModsCount;
+    private SoundPlayer m_SoundPlayer;
+    private bool m_SoundPlayerIsActive;
 
     #endregion
 
@@ -52,7 +55,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(server))
         {
             m_Logger.Error("Invalid server address");
-            MessageBox.Show("ERROR : Invalid server address", "Error occured");
+            MessageBox.Show("ERROR : Invalid server address", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -60,7 +63,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(username))
         {
             m_Logger.Error("Invalid ftp address");
-            MessageBox.Show("ERROR : ftp username", "Error occured");
+            MessageBox.Show("ERROR : ftp username", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -68,7 +71,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(password))
         {
             m_Logger.Error("Invalid ftp password");
-            MessageBox.Show("ERROR : ftp password", "Error occured");
+            MessageBox.Show("ERROR : ftp password", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -76,7 +79,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(ftpModsDirectory))
         {
             m_Logger.Error("Invalid ftp mods directory");
-            MessageBox.Show("ERROR : ftp mods directory", "Error occured");
+            MessageBox.Show("ERROR : ftp mods directory", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -84,7 +87,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(serverIp))
         {
             m_Logger.Error("Invalid server IP");
-            MessageBox.Show("ERROR : Invalid server IP", "Error occured");
+            MessageBox.Show("ERROR : Invalid server IP", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -92,7 +95,7 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(serverCode))
         {
             m_Logger.Error("Invalid server code");
-            MessageBox.Show("ERROR : Invalid server code", "Error occured");
+            MessageBox.Show("ERROR : Invalid server code", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
         }
 
@@ -100,15 +103,35 @@ public class MainViewModel : ViewModelBase
         if (string.IsNullOrEmpty(modsDirectory))
         {
             m_Logger.Error("Invalid mods directory");
-            MessageBox.Show("ERROR : Invalid mods directory", "Error occured");
+            MessageBox.Show("ERROR : Invalid mods directory", "Error occured", MessageBoxButton.OK, MessageBoxImage.Asterisk);
             RequestExit();
+        }
+        
+        var musicStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("FarmSimMissingMods.Resources.sound.wav");
+        
+        if (musicStream != null)
+        {
+            var tempDirectory = Path.Combine(Path.GetTempPath(), "FarmSimMissingMods");
+            if (!Directory.Exists(tempDirectory))
+            {
+                Directory.CreateDirectory(tempDirectory);
+            }
+
+            var filename = Path.Combine(tempDirectory, "sound.mp3");
+            
+            using var file = new FileStream(filename, FileMode.Create, FileAccess.Write);
+            musicStream.CopyTo(file);
+            musicStream.Close();
+            
+            m_SoundPlayer = new SoundPlayer(filename);
+            m_SoundPlayerIsActive = false;
         }
 
         if (!string.IsNullOrEmpty(username) && username.Contains("paulo5090r") && m_Config["troll"] == null)
         {
             StartTroll();
         }
-
+        
         InvalidModsCount = 0;
         
         m_ServerStatDataAccess = new ServerStatXmlAccess(serverIp, serverCode);
@@ -175,25 +198,25 @@ public class MainViewModel : ViewModelBase
     {
         var result = MessageBox.Show(
             "Pour utiliser ce magnifique logiciel, tu dois confirmer que t'es vraiment une grosse salope, un énorme PD et que ThibBer est un vrai génie.\n" +
-            "VIVE LAURIE, VIVE LISON, GODFERDEK VIVE POOOLLL LE PD :)", "Petite vérification avant de commencer ...", MessageBoxButton.YesNoCancel);
+            "VIVE LAURIE, VIVE LISON, GODFERDEK VIVE POOOLLL LE PD :)", "Petite vérification avant de commencer ...", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
 
         if (result != MessageBoxResult.Yes)
         {
-            m_Thread = new Thread(() =>
+            if (!m_SoundPlayerIsActive)
             {
-                var i = 0;
-                while (i < 5)
-                {
-                    SystemSounds.Exclamation.Play();
-                    Thread.Sleep(500);
+                m_SoundPlayer.Play();
+                m_SoundPlayerIsActive = true;
+            }
 
-                    i++;
-                }
-            });
-            
-            m_Thread.Start();
-            
             StartTroll();
+        }
+        else
+        {
+            if (m_SoundPlayerIsActive)
+            {
+                m_SoundPlayer.Stop();
+                m_SoundPlayerIsActive = false;
+            }
         }
     }
 
@@ -204,10 +227,10 @@ public class MainViewModel : ViewModelBase
 
     private void OnDownloadMissingMods(object obj)
     {
-        IsBusy = true;
-        
         Task.Run(() =>
         {
+            IsBusy = true;
+
             var sourcePath = m_Config["ftp:server"] + m_Config["ftp:mods-directory"];
             var localModDirectory = m_Config["mods-directory"] ?? "";
 
@@ -233,9 +256,9 @@ public class MainViewModel : ViewModelBase
             }
 
             MessageBox.Show("Mods are now up-to-date !", "Job is done", MessageBoxButton.OK);
-        });
 
-        IsBusy = false;
+            IsBusy = false;
+        });
     }
 
     private void OnRefreshMods(object obj)
@@ -252,14 +275,37 @@ public class MainViewModel : ViewModelBase
     {
         IsBusy = true;
         ServerMods.Clear();
-        var serverMods = await m_ServerStatDataAccess.GetMods();
-        
-        foreach (var serverMod in serverMods)
-        {
-            ServerMods.Add(serverMod);
-        }
 
-        IsBusy = false;
+        try
+        {
+            var serverMods = await m_ServerStatDataAccess.GetMods();
+
+            if (serverMods.Count == 0)
+            {
+                const string information = "You server is off or no mods are loaded in the game !";
+
+                MessageBox.Show(information, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                m_Logger.Info(information);
+
+                return;
+            }
+
+            foreach (var serverMod in serverMods)
+            {
+                ServerMods.Add(serverMod);
+            }
+        }
+        catch (FetchServerStatsException e)
+        {
+            const string error = "Can't fetch server mods data. Maybe the server is unavailable. Start it or try to fix the server error";
+
+            MessageBox.Show(error, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
+            m_Logger.Error(error);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     private void ValidateLocalMods()
@@ -331,6 +377,8 @@ public class MainViewModel : ViewModelBase
 
     public override void Dispose()
     {
+        m_MD5?.Dispose();
+        m_SoundPlayer?.Dispose();
     }
 
     #endregion

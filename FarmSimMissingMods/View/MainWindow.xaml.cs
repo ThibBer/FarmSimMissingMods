@@ -11,13 +11,21 @@ namespace FarmSimMissingMods.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel m_MainViewModel;
+        
         public MainWindow()
         {
             InitializeComponent();
-            var viewModel = new MainViewModel();
-            DataContext = viewModel;
+            m_MainViewModel = new MainViewModel();
+            DataContext = m_MainViewModel;
             
-            viewModel.ExitRequestedEvent += ViewModelOnExitRequestedEvent;
+            m_MainViewModel.ExitRequestedEvent += ViewModelOnExitRequestedEvent;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            m_MainViewModel.ExitRequestedEvent -= ViewModelOnExitRequestedEvent;
+            m_MainViewModel.Dispose();
         }
 
         private void ViewModelOnExitRequestedEvent(object sender, EventArgs e)
