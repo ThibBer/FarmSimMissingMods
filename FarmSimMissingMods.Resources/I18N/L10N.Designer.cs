@@ -69,6 +69,15 @@ namespace FarmSimMissingMods.Resources.I18N {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t fetch server mods data. Maybe the server is unavailable. Start it or try to fix the server error.
+        /// </summary>
+        public static string CantFetchServerData {
+            get {
+                return ResourceManager.GetString("CantFetchServerData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DownloadMissingMods.
         /// </summary>
         public static string DownloadMissingMods {
@@ -119,6 +128,15 @@ namespace FarmSimMissingMods.Resources.I18N {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You server is off or no mods are loaded in the game !.
+        /// </summary>
+        public static string NoModsOnServer {
+            get {
+                return ResourceManager.GetString("NoModsOnServer", resourceCulture);
             }
         }
         

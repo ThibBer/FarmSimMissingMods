@@ -15,7 +15,7 @@
         <value>Rafraichir les mods serveur</value>
     </data>
     <data name="ValidateLocalMods" xml:space="preserve">
-        <value>Valdier les mods en local</value>
+        <value>Valider les mods en local</value>
     </data>
     <data name="DownloadMissingMods" xml:space="preserve">
         <value>Télécharger les mods manquants</value>
@@ -43,5 +43,11 @@
     </data>
     <data name="ModsAreUpToDate" xml:space="preserve">
         <value>Les mods sont à jour ! Avec une rafale de siiiiiiiix pieds</value>
+    </data>
+    <data name="NoModsOnServer" xml:space="preserve">
+        <value>Votre serveur est éteint ou ne contient aucun mods !</value>
+    </data>
+    <data name="CantFetchServerData" xml:space="preserve">
+        <value>Impossible de récupérer les données du serveur. Il est possible que le serveur ne soit pas disponible. Démarrez-le ou essayer de réparer l'erreur du serveur</value>
     </data>
 </root>

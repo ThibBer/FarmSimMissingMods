@@ -51,4 +51,10 @@
     <data name="ModsAreUpToDate" xml:space="preserve">
         <value>Mods are now up-to-date !</value>
     </data>
+    <data name="NoModsOnServer" xml:space="preserve">
+        <value>You server is off or no mods are loaded in the game !</value>
+    </data>
+    <data name="CantFetchServerData" xml:space="preserve">
+        <value>Can't fetch server mods data. Maybe the server is unavailable. Start it or try to fix the server error</value>
+    </data>
 </root>

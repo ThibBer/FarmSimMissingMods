@@ -319,7 +319,7 @@ public class MainViewModel : ViewModelBase
 
             if (serverMods.Count == 0)
             {
-                const string information = "You server is off or no mods are loaded in the game !";
+                var information = I18NManager.GetTranslation("NoModsOnServer");
 
                 MessageBox.Show(information, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 m_Logger.Info(information);
@@ -334,7 +334,7 @@ public class MainViewModel : ViewModelBase
         }
         catch (FetchServerStatsException e)
         {
-            const string error = "Can't fetch server mods data. Maybe the server is unavailable. Start it or try to fix the server error";
+            var error = I18NManager.GetTranslation("CantFetchServerData");
 
             MessageBox.Show(error, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
             m_Logger.Error(error);
