@@ -7,17 +7,18 @@
         xmlns:viewModel="clr-namespace:FarmSimMissingMods.ViewModel"
         xmlns:extension="clr-namespace:FarmSimMissingMods.Extension"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:userControls="clr-namespace:FarmSimMissingMods.View.UserControls"
         d:DataContext="{d:DesignInstance d:Type={x:Type viewModel:MainViewModel}}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Farming Simulator Missing Mods - ThibBer" Height="550" Width="800">
-    <Grid Margin="15 0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Margin="5">
+        <Grid Grid.Row="0" Margin="20 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -43,7 +44,7 @@
             <Button Grid.Row="2" Grid.Column="3" Margin="10 0 0 0" Height="30" Command="{Binding StartGameCommand}" IsEnabled="{Binding CanStartGame}" Content="{extension:I18N StartGame}" />
         </Grid>
         
-        <ScrollViewer Grid.Row="1" PreviewMouseWheel="ScrollViewer_OnPreviewMouseWheel">
+        <ScrollViewer Grid.Row="1" PreviewMouseWheel="ScrollViewer_OnPreviewMouseWheel" Margin="15 0 15 15">
             <DataGrid ItemsSource="{Binding ServerMods}" Margin="5" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -66,5 +67,7 @@
                 </DataGrid.RowStyle>
             </DataGrid>
         </ScrollViewer>
+        
+        <userControls:LoadingScreen Grid.Row="0" Grid.RowSpan="2"  Visibility="{Binding IsBusy, Converter={converter:BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>
