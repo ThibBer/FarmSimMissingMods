@@ -2,6 +2,7 @@
 
 public enum ModState
 {
+    Unknown,
     Missing,
     NotUpToDate,
     UpToDate,

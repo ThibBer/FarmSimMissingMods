@@ -4,7 +4,7 @@ public class Mod : ObservableObject
 {
     #region Fields
 
-    private ModState? m_ModState;
+    private ModState m_ModState;
     private string m_LocalHash;
     private string m_Hash;
     #endregion
@@ -40,7 +40,7 @@ public class Mod : ObservableObject
             }
         }
     }
-    public ModState? State {
+    public ModState State {
         get => m_ModState;
         set
         {
