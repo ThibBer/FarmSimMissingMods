@@ -23,4 +23,12 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Styles.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="PresentationFramework" />
+    </ItemGroup>
+
 </Project>

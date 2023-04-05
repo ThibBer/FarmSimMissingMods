@@ -8,22 +8,24 @@
         xmlns:extension="clr-namespace:FarmSimMissingMods.Extension"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:userControls="clr-namespace:FarmSimMissingMods.View.UserControls"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         d:DataContext="{d:DesignInstance d:Type={x:Type viewModel:MainViewModel}}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Farming Simulator Missing Mods - ThibBer" Height="550" Width="800">
+        Title="Farming Simulator Missing Mods - ThibBer" Height="550" Width="800"
+        Style="{StaticResource Window}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Margin="20 5">
+        <Grid Grid.Row="0" Margin="15 5 15 15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             
             <Grid.RowDefinitions>
@@ -32,42 +34,105 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="18">Farm Sim Missing Mods</Label>
-            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Margin="0 5" Orientation="Horizontal">
-                <Label Content="{extension:I18N InvalidModsCount}"/>
-                <Label Content="{Binding InvalidModsCount}"/>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="18" Style="{StaticResource Text}">Farm Sim Missing Mods</Label>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0 5" Orientation="Horizontal">
+                <Label Content="{extension:I18N InvalidModsCount}" Style="{StaticResource Text}"/>
+                <Label Content="{Binding InvalidModsCount}" Style="{StaticResource Text}"/>
             </StackPanel>
             
-            <Button Grid.Row="2" Grid.Column="0" Margin="0 0 10 0" Height="30" Command="{Binding RefreshServerModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Content="{extension:I18N RefreshServerMods}" />
-                <Button Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" Height="30" Command="{Binding ValidateLocalModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Content="{extension:I18N ValidateLocalMods}" />
-            <Button Grid.Row="2" Grid.Column="2" Margin="10 0 0 0" Height="30" Command="{Binding DownloadMissingModsCommand}" IsEnabled="{Binding CanDownloadMods}" Content="{extension:I18N DownloadMissingMods}" />
-            <Button Grid.Row="2" Grid.Column="3" Margin="10 0 0 0" Height="30" Command="{Binding StartGameCommand}" IsEnabled="{Binding CanStartGame}" Content="{extension:I18N StartGame}" />
+            <Button Grid.Row="2" Grid.Column="0" Margin="0 0 10 0" Padding="10" Height="40" Command="{Binding RefreshServerModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Style="{StaticResource Button}" >
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="RotateRight" Width="12" Foreground="{StaticResource TextColor}" Margin="0 0 5 0" />
+                    <Label Content="{extension:I18N RefreshServerMods}" Style="{StaticResource Text}"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Row="2" Grid.Column="1" Margin="10 0 0 0" Padding="10" Height="40" Command="{Binding ValidateLocalModsCommand}" IsEnabled="{Binding IsBusy, Converter={converter:ReversedBooleanConverter}}" Style="{StaticResource Button}" >
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="CheckCircleOutline" Width="12" Foreground="{StaticResource TextColor}" Margin="0 0 5 0" />
+                    <Label Content="{extension:I18N ValidateLocalMods}" Style="{StaticResource Text}"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Row="2" Grid.Column="2" Margin="10 0 0 0" Padding="10" Height="40" Command="{Binding DownloadMissingModsCommand}" IsEnabled="{Binding CanDownloadMods}" Style="{StaticResource Button}" >
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="Download" Width="12" Foreground="{StaticResource TextColor}" Margin="0 0 5 0" />
+                    <Label Content="{extension:I18N DownloadMissingMods}" Style="{StaticResource Text}"/>
+                </StackPanel>
+            </Button>
         </Grid>
         
-        <ScrollViewer Grid.Row="1" PreviewMouseWheel="ScrollViewer_OnPreviewMouseWheel" Margin="15 0 15 15">
-            <DataGrid ItemsSource="{Binding ServerMods}" Margin="5" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True">
+        <ScrollViewer Grid.Row="1" PreviewMouseWheel="ScrollViewer_OnPreviewMouseWheel" Margin="15 0 15 15" Padding="0">
+            <DataGrid ItemsSource="{Binding ServerMods}" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" 
+                      Background="{StaticResource BackgroundColor}"
+                      HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+                      HeadersVisibility="Column" BorderBrush="Transparent"
+                      GridLinesVisibility="Horizontal" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="{StaticResource TextColor}" RowHeight="35">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Label" Binding="{Binding Label}"/>
-                    <DataGridTextColumn Header="Version" Binding="{Binding Version}"/>
-                    <DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
-                    <DataGridTextColumn Header="State" Binding="{Binding State}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Label" Binding="{Binding Label}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Version" Binding="{Binding Version}" Width="80" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" HeaderStyle="{StaticResource DataGridHeader}"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding State}" Width="120" HeaderStyle="{StaticResource DataGridHeader}"/>
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow"> 
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding HashAreEquals}" Value="false">
                                 <Setter Property="Background" Value="Orange"/>
+                                <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Error">
                                 <Setter Property="Background" Value="Red"/>
+                                <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell"> 
+                        <Setter Property="Background" Value="{StaticResource RowColor01}" />
+                        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+                    
+                        <Setter Property="Padding" Value="4,3,4,3" />
+                    
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" BorderBrush="Transparent" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style TargetType="Control">
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                        
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HashAreEquals}" Value="false">
+                                <Setter Property="Background" Value="Orange"/>
+                                <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Error">
+                                <Setter Property="Background" Value="Red"/>
+                                <Setter Property="Foreground" Value="{StaticResource BackgroundColor}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
             </DataGrid>
         </ScrollViewer>
         
-        <userControls:LoadingScreen Grid.Row="0" Grid.RowSpan="2"  Visibility="{Binding IsBusy, Converter={converter:BooleanToVisibilityConverter}}"/>
+        <Button Grid.Row="2" Margin="15 0 15 15" Padding="10" Height="40" Command="{Binding StartGameCommand}" IsEnabled="{Binding CanStartGame}" Style="{StaticResource Button}"  >
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <fa:ImageAwesome Icon="Gamepad" Width="25" Foreground="{StaticResource TextColor}" Margin="0 0 5 0" />
+                <Label Content="{extension:I18N StartGame}" Style="{StaticResource Text}"/>
+            </StackPanel>
+        </Button>
+        
+        <userControls:LoadingScreen Grid.Row="0" Grid.RowSpan="3"  Visibility="{Binding IsBusy, Converter={converter:BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>
