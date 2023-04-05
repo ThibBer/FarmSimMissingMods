@@ -89,7 +89,7 @@
                 </DataGrid.RowStyle>
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell"> 
-                        <Setter Property="Background" Value="{StaticResource RowColor01}" />
+                        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor}" />
                         <Setter Property="Foreground" Value="{StaticResource TextColor}" />
                     
                         <Setter Property="Padding" Value="4,3,4,3" />
